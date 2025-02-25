@@ -96,7 +96,7 @@ class AppRegistration():
     }
 
     def __init__(self, user: str, use_default_registration: bool):
-        self.use_default_registration = use_default_registration
+        self.use_default_registration = True
         user_split = user.split("@")
         if len(user_split) < 2:
             self.use_default_registration = True
@@ -112,8 +112,10 @@ class AppRegistration():
 
         registration = self.registration_lookup.get(self.domain)
         if registration is None:
+            print(f"default_tenant: {default_tenant}, default_client_id: {default_client_id}")
             return (default_tenant, default_client_id)
 
+        print(f"tenant: {registration['tenant']}, client_id: {registration['client_id']}")
         return (registration["tenant"], registration["client_id"])
 
 class GraphAPI(oauth.Account):
